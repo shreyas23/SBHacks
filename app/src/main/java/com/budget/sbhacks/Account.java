@@ -3,7 +3,8 @@ package com.budget.sbhacks;
 import java.util.HashMap;
 
 /**
- * Created by Shreyas Niradi on 1/20/2017.
+ * Created by Shreyas Niradi
+ * NITHIN KUMAR WAS HERE :D
  */
 
 public class Account {
