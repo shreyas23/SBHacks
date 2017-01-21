@@ -74,6 +74,8 @@ public class LoginPage extends AppCompatActivity {
                         Log.d("Institution type: ", linkData.get("institution_type"));
                         Log.d("Institution name: ", linkData.get("institution_name"));
 
+
+
                         // Reload Link in the Webview
                         // You will likely want to transition the view at this point.
                         plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
