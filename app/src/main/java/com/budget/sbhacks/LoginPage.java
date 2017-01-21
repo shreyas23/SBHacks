@@ -17,13 +17,12 @@ import android.webkit.*;
  */
 
 public class LoginPage extends AppCompatActivity {
-    private View webView;
+    private HashMap<String, String> linkData;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-// Initialize Link
+        // Initialize Link
         HashMap<String, String> linkInitializeOptions = new HashMap<String, String>();
         linkInitializeOptions.put("key", "test_key");
         linkInitializeOptions.put("product", "connect");
@@ -64,7 +63,7 @@ public class LoginPage extends AppCompatActivity {
                 Uri parsedUri = Uri.parse(url);
                 if (parsedUri.getScheme().equals("plaidlink")) {
                     String action = parsedUri.getHost();
-                    HashMap<String, String> linkData = parseLinkUriData(parsedUri);
+                    linkData = parseLinkUriData(parsedUri);
 
                     if (action.equals("connected")) {
                         // User successfully linked
@@ -122,6 +121,7 @@ public class LoginPage extends AppCompatActivity {
                 builder.appendQueryParameter(key, linkOptions.get(key));
             }
         }
+
         return builder.build();
     }
 
@@ -133,4 +133,14 @@ public class LoginPage extends AppCompatActivity {
         }
         return linkData;
     }
+
+    public HashMap<String, String> getLinkData() {
+        return linkData;
+    }
+
+    public void switchUI() {
+        Intent switchtoMain = new Intent(LoginPage.this, Homepage.class);
+        startActivity(switchtoMain);
+    }
+
 }
