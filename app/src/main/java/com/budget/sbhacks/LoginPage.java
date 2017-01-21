@@ -12,17 +12,23 @@ import java.util.HashMap;
 
 import android.webkit.*;
 
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
+import static android.R.attr.name;
+
 /**
  * Created by Shreyas Niradi on 1/20/2017.
  */
 
 public class LoginPage extends AppCompatActivity {
-    private HashMap<String, String> linkData;
+    private View webView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Initialize Link
+
+// Initialize Link
         HashMap<String, String> linkInitializeOptions = new HashMap<String, String>();
         linkInitializeOptions.put("key", "test_key");
         linkInitializeOptions.put("product", "connect");
@@ -63,7 +69,7 @@ public class LoginPage extends AppCompatActivity {
                 Uri parsedUri = Uri.parse(url);
                 if (parsedUri.getScheme().equals("plaidlink")) {
                     String action = parsedUri.getHost();
-                    linkData = parseLinkUriData(parsedUri);
+                    HashMap<String, String> linkData = parseLinkUriData(parsedUri);
 
                     if (action.equals("connected")) {
                         // User successfully linked
@@ -72,6 +78,8 @@ public class LoginPage extends AppCompatActivity {
                         Log.d("Account name: ", linkData.get("account_name"));
                         Log.d("Institution type: ", linkData.get("institution_type"));
                         Log.d("Institution name: ", linkData.get("institution_name"));
+
+
 
                         // Reload Link in the Webview
                         // You will likely want to transition the view at this point.
@@ -121,7 +129,6 @@ public class LoginPage extends AppCompatActivity {
                 builder.appendQueryParameter(key, linkOptions.get(key));
             }
         }
-
         return builder.build();
     }
 
@@ -133,14 +140,4 @@ public class LoginPage extends AppCompatActivity {
         }
         return linkData;
     }
-
-    public HashMap<String, String> getLinkData() {
-        return linkData;
-    }
-
-    public void switchUI() {
-        Intent switchtoMain = new Intent(LoginPage.this, Homepage.class);
-        startActivity(switchtoMain);
-    }
-
 }
